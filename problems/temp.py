@@ -1,22 +1,16 @@
-nums.sort()
-res = sum(nums[0: 3])
-n = len(nums)
-for i in range(n - 2):
-    if i > 1 and nums[i] == nums[i - 1]:
-        continue
-    left, right = i + 1, n - 1
-    while left < right:
-        s = nums[i] + nums[left] + nums[right]
-        if s == target:
-            return s
-        if abs(s - target) < abs(res - target):
-            res = s
-        if s > target:
-            right -= 1
-        elif s < target:
-            left += 1
+symbol_list = ['(', '{', '[', ')', '}', ']']
+stack = []
+for symbol in s:
+    if symbol in symbol_list[0: 3]:
+        stack.append(symbol)
+    elif symbol in symbol_list[3: 6]:
+        if not stack:
+            return False
         else:
-            left += 1
-            right -= 1
-return res
+            if symbol_list.index(symbol) - 3 != symbol_list.index(stack.pop()):
+                return False
+if not stack:
+    return True
+else:
+    return False
 
