@@ -1,21 +1,21 @@
-def say(k):
-    if k == 1:
-        return '1'
-    else:
-        s = say(k - 1)
-        t = len(str(s))
-        temp = s[0]
-        Ntemp = 1
-        result = ''
-        for i in range(1, t):
-            if temp == s[i]:
-                Ntemp += 1
-            elif temp != s[i]:
-                result += str(Ntemp) + temp
-                Ntemp = 1
-                temp = s[i]
-        result += str(Ntemp) + temp
-    return result
+        candidates.sort()
+        if not candidates:
+            return []
+        res = []
 
+        def backtrack(path, residue, k):
+            if residue == 0:
+                if path not in res:
+                    res.append(path)
+                return
+            for i in range(k, len(candidates)):
+                if residue < candidates[i]:
+                    break
+                if i > k and candidates[i] == candidates[i - 1]:
+                    continue
+                else:
+                    backtrack(path + [candidates[i]], residue - candidates[i], i)
+            return
 
-return say(n)
+        backtrack([], target, 0)
+        return res
