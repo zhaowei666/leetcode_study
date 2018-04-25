@@ -1,20 +1,20 @@
-res = []
-candidates.sort()
-
-
-def backtrack(path, remain, k):
-    if remain == 0:
-        if path not in res:
-            res.append(path)
-    for i in range(k, len(candidates)):
-        if remain < candidates[i]:
-            break
-        if i > k and candidates[i] == candidates[i - 1]:
-            continue
-        else:
-            backtrack(path + [candidates[i]], remain - candidates[i], i + 1)
-    return
-
-
-backtrack([], target, 0)
+fast = slow = head
+n = 1
+if not fast:
+    return head
+while fast.next:
+    n += 1
+    fast = fast.next
+k = k % n
+if k == 0:
+    return head
+fast = head
+for i in range(k):
+    fast = fast.next
+while fast.next:
+    fast = fast.next
+    slow = slow.next
+fast.next = head
+res = slow.next
+slow.next = None
 return res
