@@ -1,20 +1,23 @@
-fast = slow = head
-n = 1
-if not fast:
-    return head
-while fast.next:
-    n += 1
-    fast = fast.next
-k = k % n
-if k == 0:
-    return head
-fast = head
-for i in range(k):
-    fast = fast.next
-while fast.next:
-    fast = fast.next
-    slow = slow.next
-fast.next = head
-res = slow.next
+slow = pre = ListNode(0)
 slow.next = None
-return res
+cur = head
+pre = slow
+if not cur:
+    return head
+while cur.next:
+    fast = cur.next
+    is_unique = True
+    while cur.val == fast.val:
+        if fast.next:
+            fast = fast.next
+        else:
+            slow.next = None
+            return pre.next
+        is_unique = False
+    if is_unique:
+        slow.next = cur
+        slow = cur
+    cur = fast
+if cur:
+    slow.next = cur
+return pre.next
